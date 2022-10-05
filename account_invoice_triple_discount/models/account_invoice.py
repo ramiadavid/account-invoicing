@@ -19,7 +19,7 @@ class AccountInvoice(models.Model):
             price_unit = line.price_unit * (1 - (line.discount or 0.0) / 100.0)
             price_unit *= (1 - (line.discount2 or 0.0) / 100.0)
             price_unit *= (1 - (line.discount3 or 0.0) / 100.0)
-            line.update({
+            line.with_context(with_precision=16).update({
                 'price_unit': price_unit,
                 'discount': 0.0,
             })
